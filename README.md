@@ -17,14 +17,14 @@
 
 ```
 SCHEMA/
-  INDEX.md                               ← you are here
+  README.md                               ← you are here
   00-SCHEMA-RESTRUCTURE-ASSESSMENT.md    ← audit & gap analysis
   regions/
     {RegionID}/
       _REGION.md                         ← region index: folder, sources, file patterns, caveats
       {NodeType}.md                      ← per-node: full attributes, children, cross-refs
   stats/
-    INDEX.md                             ← stats overview: types, file locations, syntax
+    README.md                             ← stats overview: types, file locations, syntax
     reference/
       inheritance.md                     ← using, merge, load order
       functors-boosts.md                 ← functor/boost/enum reference
@@ -278,7 +278,7 @@ Common multi-region patterns:
 
 ## Stats (.txt Format)
 
-See [stats/INDEX.md](stats/INDEX.md) for the full reference.
+See [stats/README.md](stats/README.md) for the full reference.
 
 | File | Type | Content |
 |------|------|---------|

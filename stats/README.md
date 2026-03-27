@@ -7,7 +7,7 @@
 
 ```
 stats/
-  INDEX.md               ← you are here
+  README.md               ← you are here
   reference/
     inheritance.md       ← using, merge, load order rules
     functors-boosts.md   ← complete functor & boost reference
