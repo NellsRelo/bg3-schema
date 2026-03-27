@@ -13,7 +13,7 @@ Each LSX region gets its own folder: `_REGION.md` (index) + one file per node ty
 | SharedDev | `UnpackedData/Shared/Public/SharedDev/` | Dev/extended data |
 | Gustav | `UnpackedData/Gustav/Public/Gustav/` | Campaign-specific |
 | GustavDev | `UnpackedData/Gustav/Public/GustavDev/` | Campaign dev data |
-| GustavX | `UnpackedData/GustavX/Public/GustavX/` | Extended Edition |
+| GustavX | `UnpackedData/GustavX/Public/GustavX/` | More Campaign data |
 
 ## Directory Structure
 
