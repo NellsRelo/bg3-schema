@@ -1,7 +1,9 @@
 # BG3 Data Schema Reference
 
-> Comprehensive schema definitions for BG3 mod data, organized by **region** (LSX) and **data type** (Stats .txt).  
-> Each LSX region gets its own folder: `_REGION.md` (index) + one file per node type.
+Comprehensive schema definitions for BG3 mod data, organized by **region** (LSX) and **data type** (Stats .txt).  
+Each LSX region gets its own folder: `_REGION.md` (index) + one file per node type.
+
+> Important to note: This information was compiled via Claude Code, by scanning it over unpacked game files to identify all unique attributes, as well as reference flow and common patterns. While most information has been vetted, and measures were taken to minimize risk of hallucination, do not follow this schema blindly - mistakes are possible, and the best source of truth will be the unpacked game files themselves.
 
 ## Sources
 
