@@ -1,0 +1,137 @@
+# Node: `Race`
+
+> **Region**: [Races](_REGION.md)
+> **Folder**: `Races/`
+
+---
+
+## Attributes
+
+> 91 nodes in Shared/Races.lsx (vanilla)
+
+| Attribute | Type | Count | Examples | Notes |
+|-----------|------|-------|----------|-------|
+| `UUID` | guid | 91/91 | `899d275e-9893-490a-9cd5-be856794929f` | Primary key |
+| `Name` | FixedString | 91/91 | `Humanoid`, `Human`, `Elf`, `Dwarf` | Internal identifier |
+| `DisplayName` | TranslatedString | 90/91 | handle + version | Localized race name |
+| `Description` | TranslatedString | 90/91 | handle + version | Localized race description |
+| `ParentGuid` | guid | 74/91 | parent race UUID | Sub-races — links to base race |
+| `DisplayTypeUUID` | guid | 74/91 | parent race type | Sub-races — UI grouping |
+| `RaceSoundSwitch` | FixedString | 62/91 | `Human`, `Dragonborn`, `Elf` | Audio profile identifier |
+| `ProgressionTableUUID` | guid | 29/91 | `4b6e7ec9-...` | Links to racial features in Progression table |
+| `RaceEquipment` | FixedString | 10/91 | `EQ_Underwear_Humans`, `EQ_Underwear_Dragonborn` | Default underwear/body model |
+
+## Child Nodes
+
+### Node Hierarchy
+
+```
+Race
++-- MakeupColors (2444 entries)
++-- TattooColors (1560 entries)
++-- HairColors (1375 entries)
++-- SkinColors (864 entries)
++-- HairHighlightColors (839 entries)
++-- Visuals (839 entries)
++-- LipsMakeupColors (693 entries)
++-- HairGrayingColors (383 entries)
++-- EyeColors (368 entries)
++-- HornTipColors (165 entries)
++-- HornColors (99 entries)
++-- Tags (94 entries)
++-- ExcludedGods (35 entries)
++-- Gods (1 entry)
+```
+
+### Color Nodes (SkinColors, EyeColors, HairColors, HairGrayingColors, HairHighlightColors, LipsMakeupColors, HornColors, HornTipColors, MakeupColors, TattooColors)
+
+All color child nodes share the same structure:
+
+| Attribute | Type | Frequency | Notes |
+|-----------|------|-----------|-------|
+| `Object` | guid | always | Color preset UUID — links to CC preset entries |
+
+Each color node is a wrapper containing multiple child entries:
+```xml
+<node id="SkinColors">
+  <children>
+    <node id="SkinColors">
+      <attribute id="Object" type="guid" value="..." />
+    </node>
+    <!-- 50+ more entries -->
+  </children>
+</node>
+```
+
+### ExcludedGods
+
+| Attribute | Type | Frequency | Notes |
+|-----------|------|-----------|-------|
+| `Object` | guid | always | God UUID — this deity is not available for this race |
+
+### Gods
+
+| Attribute | Type | Frequency | Notes |
+|-----------|------|-----------|-------|
+| `Object` | guid | always | God UUID — only 1 entry in vanilla data (singular, distinct from ExcludedGods) |
+
+### Visuals
+
+| Attribute | Type | Frequency | Notes |
+|-----------|------|-----------|-------|
+| `Object` | guid | always | Visual UUID — links to CC appearance visual entries (839 entries across all races) |
+
+### Tags
+
+| Attribute | Type | Frequency | Notes |
+|-----------|------|-----------|-------|
+| `Object` | guid | always | Tag classification UUID |
+
+## Patterns of Use
+
+### Base Race vs Sub-Race
+
+- **Base races** (Human, Elf, Dwarf, etc.): No `ParentGuid`, have all color children, define `RaceEquipment` and `RaceSoundSwitch`
+- **Sub-races** (High Elf, Wood Elf, etc.): `ParentGuid` points to base race, may override colors or add their own, `DisplayTypeUUID` for UI grouping
+
+### Color Palette Inheritance
+
+Sub-races can define their **own** color children OR inherit from the parent. If a sub-race has no `SkinColors` children, it uses the parent race's `SkinColors`.
+
+## Cross-References
+
+| From | To | Via |
+|------|----|-----|
+| Race.ProgressionTableUUID | [Progression](../Progressions/Progression.md) | Progression.TableUUID |
+| Race.ExcludedGods.Object | [God](../Gods/God.md) | God.UUID |
+| Race.Gods.Object | [God](../Gods/God.md) | God.UUID |
+| Race.Tags.Object | [Tags](../Tags/Tags.md) | Tags.UUID |
+| Race.Visuals.Object | [CC AppearanceVisual](../CharacterCreationAppearanceVisuals/CharacterCreationAppearanceVisual.md) | VisualResource UUID |
+| Race.Color UUIDs | [CC Presets](../CharacterCreationSkinColors/_REGION.md) | Preset UUIDs |
+| [Origin](../Origins/Origin.md).RaceUUID | Race | Race.UUID |
+| [ClassDescription](../ClassDescriptions/ClassDescription.md) — | Race | (indirect via progression) |
+
+## Caveats & Gotchas
+
+- **Deep nesting**: A single Race node can have thousands of total child entries — MakeupColors alone has 2444 entries across all races.
+- **14 child node types**: SkinColors, EyeColors, HairColors, HairGrayingColors, HairHighlightColors, LipsMakeupColors, HornColors, HornTipColors, MakeupColors, TattooColors, Visuals, ExcludedGods, Gods, Tags.
+- **Humanoid pseudo-race**: `Name="Humanoid"` is the root of the race hierarchy but is not a playable race.
+- **DisplayTypeUUID vs ParentGuid**: Both are used for sub-races. `ParentGuid` = data hierarchy, `DisplayTypeUUID` = UI display grouping. They are usually the same but can differ.
+- **Color UUIDs are opaque**: The color child `Object` GUIDs refer to CC preset entries (e.g., `CharacterCreationSkinColors`) where the actual RGB values are defined.
+- **Racial progression features** — Like classes, races have a `ProgressionTableUUID` that links to [Progression](../Progressions/Progression.md) entries. Racial features (e.g., Darkvision, Fey Ancestry) are granted via `Boosts` and `PassivesAdded` on the Progression rows.
+- **ExcludedGods is race-level deity restriction** — Prevents certain gods from appearing in the deity selection screen for this race (e.g., Drow typically exclude good-aligned deities).
+- **Sub-race color inheritance** — If a sub-race has NO children for a color type (e.g., no `SkinColors`), it inherits the parent race's colors. If it HAS any, those replace the parent's entirely — there is no merge.
+- **Mod authoring pattern**: Custom race mods require: 1) Race.lsx entry with UUID and tags, 2) Progression entries for racial features, 3) CC preset entries for appearance options, 4) RootTemplate entries for the character body, 5) Localization entries for all TranslatedString handles. Missing any of these causes partial or invisible races.
+
+## Scripting & Runtime Notes
+
+- **Osiris**: `IsRace(character, raceUUID)` checks race membership. Available in story goals and SE Osiris listeners.
+- **SE**: `Ext.Entity` can query race components on character entities at runtime.
+- **Khonsu conditions**: `PlayableRace()` and race-related entity queries are available for Stats condition expressions.
+- **Tags**: Race tags are commonly checked in dialog conditions, Osiris scripts, and Stats conditions — always assign appropriate race-category Tags.
+
+## Similarities to Other Nodes
+
+- [ClassDescription](../ClassDescriptions/ClassDescription.md) also has `ProgressionTableUUID` ? same progression system
+- [Origin](../Origins/Origin.md) references races via `RaceUUID` / `SubRaceUUID`
+- [Background](../Backgrounds/Background.md) also has a `Tags` child node with the same structure
