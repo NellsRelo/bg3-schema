@@ -13,7 +13,7 @@
 |-----------|------|-------|----------|-------|
 | `UUID` | guid | 58/58 | `94bc7b1d-70e4-476a-9c99-24b90d9f2083` | Primary key |
 | `BodyShape` | uint8 | 58/58 | `0`, `1` | Body build (0=Regular, 1=Strong) |
-| `BodyType` | uint8 | 58/58 | `0`, `1` | Body type index |
+| `BodyType` | uint8 | 58/58 | `0`, `1` | Body type (0=Masculine, 1=Feminine) |
 | `RaceUUID` | guid | 58/58 | links to Race.UUID | Race this preset belongs to |
 | `SubRaceUUID` | guid | 58/58 | links to Race.UUID (sub-race) | Sub-race for this preset |
 | `RootTemplate` | guid | 58/58 | `f08563b3-748d-4783-837b-b8620bc60b22` | Character template |

@@ -15,8 +15,8 @@
 | `DisplayName` | TranslatedString | 598/598 | handle + version | Localized visual name |
 | `SlotName` | FixedString | 598/598 | `Hair`, `Head`, `Beard` | Cosmetic slot this visual occupies |
 | `VisualResource` | guid | 598/598 | `bf6ea9d0-db38-d44c-8cbd-12e6aca03044` | GR2/visual resource reference |
-| `BodyShape` | uint8 | 589/598 | `0`, `1` | Body shape filter |
-| `BodyType` | uint8 | 589/598 | `0`, `1` | Body type filter |
+| `BodyShape` | uint8 | 589/598 | `0`, `1` | Body build filter (0=Regular, 1=Strong) |
+| `BodyType` | uint8 | 589/598 | `0`, `1` | Body type filter (0=Masculine, 1=Feminine) |
 | `RaceUUID` | guid | 589/598 | links to Race.UUID | Race this visual belongs to |
 | `DefaultSkinColor` | guid | 218/598 | `00000000-0000-0000-0000-000000000000` | Default skin color override |
 | `IconIdOverride` | FixedString | 80/598 | `0_Hair_66c89035-...` | CC icon override |

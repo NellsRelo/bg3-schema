@@ -11,7 +11,7 @@
 | Attribute | Type | Frequency | Examples | Notes |
 |-----------|------|-----------|----------|-------|
 | `UUID` | guid | 60/60 | `fd3b6992-...` | Primary key |
-| `BodyShape` | uint8 | 60/60 | `0`, `1` | 0=Normal, 1=Strong |
+| `BodyShape` | uint8 | 60/60 | `0`, `1` | 0=Regular, 1=Strong |
 | `BodyType` | uint8 | 60/60 | `0`, `1` | 0=Masculine, 1=Feminine |
 | `RaceUUID` | guid | 60/60 | `4f5d1434-...` | References Races region |
 | `SubRaceUUID` | guid | 60/60 | `c5f8ebdd-...` | References SubRace |

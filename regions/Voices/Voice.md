@@ -13,7 +13,7 @@
 |-----------|------|-------|----------|-------|
 | `UUID` | guid | 4/4 | `15ead9db-7a73-4681-8848-5f1487ad4c68` | Primary key |
 | `DisplayName` | TranslatedString | 4/4 | handle + version | Localized voice name |
-| `BodyType` | uint8 | 4/4 | `0`, `1` | Body type this voice is for |
+| `BodyType` | uint8 | 4/4 | `0`, `1` | 0=Masculine, 1=Feminine |
 | `SpeakerUUID` | guid | 4/4 | `24247531-c432-4f0f-8f35-6c90c4844aa8` | Speaker entity reference |
 | `TableUUID` | guid | 4/4 | `5ee56242-d07c-482e-9260-24529d1473a3` | Voice table group reference |
 
